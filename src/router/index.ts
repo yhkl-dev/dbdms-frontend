@@ -9,17 +9,18 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import CommonPage from "./common";
+import Home from "@/views/Home.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  CommonPage
+  CommonPage,
   // UserPage
-  // {
-  //   path: "/",
-  //   name: "Home",
-  //   component: Home
-  // },
+  {
+    path: "/",
+    name: "Home",
+    component: Home
+  },
   // {
   //   path: "/about",
   //   name: "About",

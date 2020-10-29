@@ -10,38 +10,44 @@
   <div class="background">
     <div class="card-class">
       <div class="title-class">
-        <h1>Welcome!</h1>
+        <h1>Welcome</h1>
       </div>
       <div class="form-class">
         <div class="out-class">
           <div class="inner-class">
             <a-form-model
               layout="vertical"
-              :model="loginForm"
-              ref="loginRef"
+              ref="ruleForm"
+              :model="form"
               :rules="rules"
             >
-              <a-form-model-item label="Username" prop="user_name">
+              <a-form-model-item label="username" prop="username">
                 <a-input
-                  v-model="loginForm.user_name"
+                  v-model="form.username"
                   placeholder="please input your username"
-                />
+                >
+                  <a-icon slot="prefix" type="user" />
+                </a-input>
               </a-form-model-item>
-              <a-form-model-item label="Password" prop="user_password">
+              <a-form-model-item label="password" prop="userPassword">
                 <a-input
                   type="password"
-                  v-model="loginForm.user_password"
-                  @keyup.enter.native="loginClick('loginForm')"
+                  v-model="form.userPassword"
+                  @keyup.enter.native="onSubmit"
                   placeholder="please input your password"
-                />
+                >
+                  <a-icon slot="prefix" type="lock" />
+                </a-input>
               </a-form-model-item>
-              <a-button
-                type="primary"
-                class="login-btn-class"
-                @click="loginClick('loginForm')"
-              >
-                Login
-              </a-button>
+              <a-form-model-item>
+                <a-button
+                  type="primary"
+                  @click="onSubmit"
+                  class="login-btn-class"
+                >
+                  Login
+                </a-button>
+              </a-form-model-item>
             </a-form-model>
           </div>
         </div>
@@ -51,53 +57,42 @@
 </template>
 
 <script>
-import { login } from "@/apis/user";
 export default {
-  name: "login",
   data() {
-    const validateUserName = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("Please input the password"));
-      }
-    };
-    const validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("Please input the password"));
-      }
-    };
     return {
-      rules: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        user_name: [{ validator: validateUserName, trigger: "change" }],
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        user_password: [{ validator: validatePass, trigger: "change" }]
+      form: {
+        username: "",
+        userPassword: ""
       },
-      loginForm: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        user_name: "",
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        user_password: ""
+      rules: {
+        username: [
+          {
+            required: true,
+            message: "Please input user name",
+            trigger: "blur"
+          }
+        ],
+        userPassword: [
+          {
+            required: true,
+            message: "Please input user password",
+            trigger: "blur"
+          }
+        ]
       }
     };
   },
-  computed: {},
   methods: {
-    loginClick() {
-      console.log(this.$store.state);
-      this.$refs.loginRef.validate(valid => {
+    onSubmit() {
+      this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          // alert("submit!");
-          login(this.loginForm.user_name, this.loginForm.user_name);
-          debugger;
-
           this.$store
-            .dispatch("Login", this.loginForm)
+            .dispatch("Login", this.form)
             .then(() => {
-              console.log("xxx");
-              // this.$router.push({ path: "/" });
+              this.$router.push("/");
             })
-            .catch(() => {
-              console.log("error");
+            .catch(error => {
+              console.log("error", error);
             });
         } else {
           console.log("error submit!!");
