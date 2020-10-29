@@ -90,7 +90,9 @@ export default {
             .dispatch("Login", this.form)
             .then(() => {
               this.$message.success("This is a success message");
-              this.$router.push("/");
+              setInterval(function() {
+                this.$router.push("/");
+              }, 3000);
             })
             .catch(error => {
               // this.$notification.open({

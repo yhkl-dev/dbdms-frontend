@@ -31,8 +31,8 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data;
-    if (res.Message) {
-      notification.warning({
+    if (res.Code === "0") {
+      notification.error({
           message: "ERROR",
           description: res.Message
       });
