@@ -89,9 +89,17 @@ export default {
           this.$store
             .dispatch("Login", this.form)
             .then(() => {
+              this.$message.success("This is a success message");
               this.$router.push("/");
             })
             .catch(error => {
+              // this.$notification.open({
+              //   message: "Notification Title",
+              //   description: error,
+              //   onClick: () => {
+              //     console.log("Notification Clicked!");
+              //   }
+              // });
               console.log("error", error);
             });
         } else {

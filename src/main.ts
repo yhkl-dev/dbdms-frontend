@@ -12,12 +12,13 @@ import router from "./router";
 import store from "./store";
 import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
-import { message } from "ant-design-vue";
+import { message, notification } from "ant-design-vue";
 
 Vue.config.productionTip = false;
 Vue.use(Antd);
 
 Vue.prototype.$message = message;
+Vue.prototype.$notification = notification;
 
 message.config({
   duration: 2, // 持续时间

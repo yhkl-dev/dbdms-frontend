@@ -1,9 +1,10 @@
 import axios from "axios";
 import store from "../store";
-import router from "../router";
+// import router from "../router";
 import { getToken } from "./auth";
+import {message, notification} from "ant-design-vue";
 
-import { message } from "ant-design-vue";
+// import { message } from "ant-design-vue";
 
 // 创建axios实例
 const service = axios.create({
@@ -30,17 +31,30 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data;
-    if (res.errmsg) {
-      message.error(res.errmsg);
+    if (res.Message) {
+      notification.warning({
+          message: "ERROR",
+          description: res.Message
+      });
       return Promise.reject(response);
     }
     return res;
   },
-  // error => {
-  //   if (!error.response) {
-  //     message.error("系统错误");
-  //     return Promise.reject(error);
-  //   }
+  error => {
+    if (!error.response) {
+      notification.error({
+        message: "System Error",
+        description: ""
+      });
+      return Promise.reject(error);
+    } else if (error.response.status === 500) {
+      notification.error({
+        message: "System Internal Error",
+        description: ""
+      });
+    }
+  }
+
   //   if (error.response.status === 401) {
   //     store.dispatch("FedLogOut").then(() => {
   //       router.push({ path: "/login" });
