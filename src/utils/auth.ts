@@ -2,11 +2,12 @@
  * @Author: github.com/yhkl-dev
  * @LastEditors: github.com/yhkl-dev
  * @Date: 2020-10-29 10:55:13
- * @LastEditTime: 2020-10-29 11:01:27
+ * @LastEditTime: 2020-10-30 15:11:37
  * @Description: file content
  * @FilePath: \dbdms-frontend\src\utils\auth.ts
  */
 import Cookies from "js-cookie";
+import store from "../store";
 
 const TokenKey = "ACCESS_TOKEN";
 

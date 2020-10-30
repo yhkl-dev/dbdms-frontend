@@ -2,7 +2,7 @@
  * @Author: github.com/yhkl-dev
  * @LastEditors: github.com/yhkl-dev
  * @Date: 2020-10-28 09:35:00
- * @LastEditTime: 2020-10-29 13:39:21
+ * @LastEditTime: 2020-10-30 15:03:34
  * @Description: file content
  * @FilePath: \dbdms-frontend\src\main.ts
  */
@@ -12,13 +12,12 @@ import router from "./router";
 import store from "./store";
 import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
-import { message, notification } from "ant-design-vue";
+import { message } from "ant-design-vue";
 
 Vue.config.productionTip = false;
 Vue.use(Antd);
 
 Vue.prototype.$message = message;
-Vue.prototype.$notification = notification;
 
 message.config({
   duration: 2, // 持续时间

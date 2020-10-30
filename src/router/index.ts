@@ -2,12 +2,14 @@
  * @Author: github.com/yhkl-dev
  * @LastEditors: github.com/yhkl-dev
  * @Date: 2020-10-28 09:35:00
- * @LastEditTime: 2020-10-28 16:30:55
+ * @LastEditTime: 2020-10-30 16:06:13
  * @Description: file content
  * @FilePath: \dbdms-frontend\src\router\index.ts
  */
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import store from "../store";
+import { notification } from "ant-design-vue";
 import CommonPage from "./common";
 import Home from "@/views/Home.vue";
 
@@ -18,9 +20,9 @@ const routes: Array<RouteConfig> = [
   // UserPage
   {
     path: "/",
-    name: "Home",
-    component: Home
-  },
+    name: "HomePage",
+    component: () => import(/* webpackChunkName: "about" */ "@/components/layout/index.vue")
+  }
   // {
   //   path: "/about",
   //   name: "About",
@@ -34,8 +36,28 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
-  routes
+  routes,
+  base: process.env.BASE_URL
+});
+
+router.beforeEach(async (to, from, next) => {
+  console.log("alert check router", store.getters.token);
+  if (!store.getters.token && to.path !== "/login" && to.path !== "/register") {
+    notification.error({
+      message: "Warning",
+      description:
+        "The current login information has expired, please log in again"
+    });
+    setTimeout(() => {
+      next("/login");
+    }, 1000);
+    return;
+  }
+  // 滚动到顶部
+  // chrome
+  document.body.scrollTop = 0;
+  // firefox
+  next();
 });
 
 export default router;

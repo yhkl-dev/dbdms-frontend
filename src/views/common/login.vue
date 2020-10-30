@@ -2,7 +2,7 @@
  * @Author: github.com/yhkl-dev
  * @LastEditors: github.com/yhkl-dev
  * @Date: 2020-10-28 12:19:10
- * @LastEditTime: 2020-10-29 16:57:03
+ * @LastEditTime: 2020-10-30 10:19:26
  * @Description: file content
  * @FilePath: \dbdms-frontend\src\views\common\login.vue
 -->
@@ -89,19 +89,15 @@ export default {
           this.$store
             .dispatch("Login", this.form)
             .then(() => {
-              this.$message.success("This is a success message");
-              setInterval(function() {
+              this.$notification.success({
+                message: "Login success",
+                description: ""
+              });
+              setTimeout(() => {
                 this.$router.push("/");
-              }, 3000);
+              }, 1000);
             })
             .catch(error => {
-              // this.$notification.open({
-              //   message: "Notification Title",
-              //   description: error,
-              //   onClick: () => {
-              //     console.log("Notification Clicked!");
-              //   }
-              // });
               console.log("error", error);
             });
         } else {
