@@ -25,7 +25,7 @@ const user = {
   },
 
   actions: {
-    // 登录
+    // login function
     Login(
       // eslint-disable-next-line
       { commit }: any,
@@ -42,7 +42,7 @@ const user = {
               Content: { [x: string]: string; ACCESS_TOKEN: string };
             }) => {
               commit("SET_TOKEN", response.Content.ACCESS_TOKEN);
-              setToken(response.Content["ACCESS_TOKEN"]);
+              setToken(response.Content.ACCESS_TOKEN);
               resolve();
             }
           )

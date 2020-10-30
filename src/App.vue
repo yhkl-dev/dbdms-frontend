@@ -25,7 +25,9 @@
   box-sizing: border-box;
   color: #726e6c;
   font-family: Muli, helvetica neue, Helvetica, Arial, sans-serif;
-  font-size: 62.5%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /*font-size: 62.5%;*/
   line-height: 1.5;
   overflow-x: hidden;
 }

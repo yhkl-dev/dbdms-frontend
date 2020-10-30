@@ -16,14 +16,15 @@ import { notification } from "ant-design-vue";
 // eslint-disable-next-line
 const service = (axios as any).create({
   // baseURL: process.env.BASE_API, // api的base_url
-  baseURL: "http://yangkai.org.cn:8004/", // api的base_url
+  // baseURL: "http://yangkai.org.cn:8004/", // api的base_url
+  baseURL: "http://localhost:8080/", // api的base_url
   timeout: 15000 // 请求超时时间
 });
 
 // request拦截器
 service.interceptors.request.use(
   (config: { headers: { [x: string]: string | undefined } }) => {
-    if (store.getters.token) {
+    if (store.getters.token && store.getters.token !== "undefined") {
       config.headers["ACCESS_TOKEN"] = getToken(); // 让每个请求携带自定义token 请根据实际情况自行修改
     }
     return config;

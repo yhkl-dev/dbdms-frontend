@@ -1,23 +1,19 @@
-<!--
- * @Author: github.com/yhkl-dev
- * @LastEditors: github.com/yhkl-dev
- * @Date: 2020-10-30 15:17:11
- * @LastEditTime: 2020-10-30 16:54:19
- * @Description: file content
- * @FilePath: \dbdms-frontend\src\components\layout\index.vue
--->
 <template>
   <div>
     <a-layout>
       <a-layout-header class="header">
         <div class="header-content"></div>
-        <a class="header-logo"> </a>
+        <a class="header-logo" href="/homepage">develop</a>
+        <a class="header-link" href="/document">
+          <a-icon type="read" />
+          <span class="title">docs</span>
+        </a>
       </a-layout-header>
       <a-layout-content class="content">
         <router-view></router-view>
       </a-layout-content>
       <a-layout-footer class="footer">
-        <div class="footer-content">xxx</div>
+        <div class="footer-content">@yhkl-dev</div>
       </a-layout-footer>
     </a-layout>
   </div>
@@ -76,7 +72,7 @@
   color: #424242;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 400;
   line-height: 1.875;
   margin: 0 1.25em 0.75em 0;
@@ -84,15 +80,15 @@
   text-decoration: none;
 }
 .header-logo::before {
-  background-image: url("../../assets/logo.svg");
+  background-image: url("../../assets/database.png");
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: cover;
   content: "";
   display: block;
-  font-size: 1rem;
+  font-size: 0.75rem;
   height: 3em;
-  left: 0;
+  left: 1em;
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -102,6 +98,18 @@
 }
 .header-logo:visited {
   color: #424242;
+}
+
+.header-link {
+  position: relative;
+  color: #424242;
+  flex-shrink: 0;
+  font-size: 1.6rem;
+  font-weight: 400;
+  padding-left: 2.25em;
+}
+.title {
+  margin-left: 0.5em;
 }
 .content {
   padding: 0 2%;

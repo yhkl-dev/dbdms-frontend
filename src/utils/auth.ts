@@ -7,7 +7,6 @@
  * @FilePath: \dbdms-frontend\src\utils\auth.ts
  */
 import Cookies from "js-cookie";
-import store from "../store";
 
 const TokenKey = "ACCESS_TOKEN";
 

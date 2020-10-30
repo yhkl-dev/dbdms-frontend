@@ -11,7 +11,6 @@ import VueRouter, { RouteConfig } from "vue-router";
 import store from "../store";
 import { notification } from "ant-design-vue";
 import CommonPage from "./common";
-import Home from "@/views/Home.vue";
 
 Vue.use(VueRouter);
 
@@ -21,17 +20,29 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "HomePage",
-    component: () => import(/* webpackChunkName: "about" */ "@/components/layout/index.vue")
+    component: () =>
+      import(/* webpackChunkName: "about" */ "@/components/layout/index.vue"),
+    children: [
+      {
+        path: "/homepage",
+        name: "homepage",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/homepage/index.vue")
+      },
+      {
+        path: "/document",
+        name: "document",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/document/index.vue")
+      }
+    ]
   }
-  // {
-  //   path: "/about",
-  //   name: "About",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-  // }
 ];
 
 const router = new VueRouter({
@@ -42,7 +53,12 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   console.log("alert check router", store.getters.token);
-  if (!store.getters.token && to.path !== "/login" && to.path !== "/register") {
+  if (
+    !store.getters.token &&
+    store.getters.token !== "undefined" &&
+    to.path !== "/login" &&
+    to.path !== "/register"
+  ) {
     notification.error({
       message: "Warning",
       description:
