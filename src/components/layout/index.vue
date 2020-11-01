@@ -1,15 +1,27 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <a-layout>
       <a-layout-header class="header">
         <div class="header-content"></div>
-        <a class="header-logo" href="/homepage">develop</a>
-        <a class="header-link" href="/document">
-          <a-icon type="read" />
+        <a class="header-logo" href="/">develop</a>
+        <a class="header-link" href="/database">
+          <a-icon type="read" class="icon-style" />
           <span class="title">docs</span>
         </a>
       </a-layout-header>
       <a-layout-content class="content">
+        <div>
+          <a-breadcrumb separator="/">
+            <a-breadcrumb-item href="">
+              <a-icon type="home" />
+            </a-breadcrumb-item>
+            <a-breadcrumb-item>
+              <a-icon :type="$route.meta.icon" />
+              {{ $route.name }}
+            </a-breadcrumb-item>
+          </a-breadcrumb>
+          <br />
+        </div>
         <router-view></router-view>
       </a-layout-content>
       <a-layout-footer class="footer">
@@ -18,6 +30,16 @@
     </a-layout>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      basePath: "/"
+    };
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 .header {
@@ -111,8 +133,12 @@
 .title {
   margin-left: 0.5em;
 }
+.icon-style {
+  color: #50b7eb;
+}
 .content {
   padding: 0 2%;
+  height: 100%;
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
@@ -136,9 +162,10 @@
 }
 
 .footer {
-  background: #f2f4f5;
+  background: #f0f2f5;
   padding: 1.2em 0;
-  display: block;
+  // display: block;
+  text-align: center;
 }
 .footer-content {
   padding: 0 2%;

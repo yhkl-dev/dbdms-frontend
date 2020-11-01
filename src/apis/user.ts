@@ -1,11 +1,3 @@
-/*
- * @Author: github.com/yhkl-dev
- * @LastEditors: github.com/yhkl-dev
- * @Date: 2020-10-29 10:39:12
- * @LastEditTime: 2020-10-29 13:32:44
- * @Description: file content
- * @FilePath: \dbdms-frontend\src\apis\user.ts
- */
 import request from "@/utils/request";
 
 // user login

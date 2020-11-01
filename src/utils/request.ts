@@ -17,7 +17,7 @@ import { notification } from "ant-design-vue";
 const service = (axios as any).create({
   // baseURL: process.env.BASE_API, // api的base_url
   // baseURL: "http://yangkai.org.cn:8004/", // api的base_url
-  baseURL: "http://localhost:8080/", // api的base_url
+  baseURL: "http://192.168.31.128:8080/", // api的base_url
   timeout: 15000 // 请求超时时间
 });
 

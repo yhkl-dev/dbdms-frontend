@@ -15,34 +15,66 @@ import CommonPage from "./common";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  CommonPage,
   // UserPage
   {
     path: "/",
-    name: "HomePage",
+    name: "Homepage",
     component: () =>
       import(/* webpackChunkName: "about" */ "@/components/layout/index.vue"),
     children: [
       {
-        path: "/homepage",
-        name: "homepage",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
+        path: "",
+        name: "Homepage",
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/homepage/index.vue")
       },
       {
         path: "/document",
         name: "document",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
+        meta: {
+          icon: "folder-open"
+        },
         component: () =>
-          import(/* webpackChunkName: "about" */ "@/views/document/index.vue")
+          import(/* webpackChunkName: "about" */ "@/views/document/index.vue"),
+        children: [
+          {
+            path: "/compare",
+            name: "compare",
+            meta: {
+              icon: "file"
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ "@/views/document/compare/index.vue"
+              )
+          },
+          {
+            path: "/database",
+            name: "database",
+            meta: {
+              icon: "database"
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ "@/views/document/databases/index.vue"
+              )
+          },
+          {
+            path: "/browse",
+            name: "browse",
+            meta: {
+              icon: "database"
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ "@/views/document/browse/index.vue"
+              )
+          }
+        ]
       }
     ]
-  }
+  },
+  CommonPage
 ];
 
 const router = new VueRouter({

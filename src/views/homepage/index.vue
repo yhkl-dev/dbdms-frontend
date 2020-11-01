@@ -1,5 +1,7 @@
 <template>
-  <div>index</div>
+  <div class="document" style="width:100%">
+    Welcome to Database document System
+  </div>
 </template>
 
 <script>
@@ -8,4 +10,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.document {
+  width: 100%;
+  height: 100%;
+}
+</style>
