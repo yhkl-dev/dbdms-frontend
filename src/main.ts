@@ -5,7 +5,7 @@ import store from "./store";
 import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 import { message } from "ant-design-vue";
-import 'github-markdown-css/github-markdown.css';
+import "github-markdown-css/github-markdown.css";
 
 Vue.config.productionTip = false;
 Vue.use(Antd);

@@ -11,10 +11,16 @@ export function getDocumentList(params: JSON) {
 
 // version list
 export function getDocumentVersionList(params: JSON) {
-    return request({
-      url: "api/v1/document_versions",
-      method: "get",
-      params
-    });
-  }
-  
+  return request({
+    url: "api/v1/document_versions",
+    method: "get",
+    params
+  });
+}
+
+export function generateDocument(resouceID: number) {
+  return request({
+    url: "api/v1/documents/resource/" + resouceID,
+    method: "get"
+  });
+}
