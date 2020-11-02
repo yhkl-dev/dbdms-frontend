@@ -1,11 +1,3 @@
-/*
- * @Author: github.com/yhkl-dev
- * @LastEditors: github.com/yhkl-dev
- * @Date: 2020-10-28 09:35:00
- * @LastEditTime: 2020-10-30 16:06:13
- * @Description: file content
- * @FilePath: \dbdms-frontend\src\router\index.ts
- */
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import store from "../store";
@@ -84,10 +76,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  console.log("alert check router", store.getters.token);
+  console.log("alert check token", store.getters.token);
   if (
     !store.getters.token &&
-    store.getters.token !== "undefined" &&
+    // store.getters.token !== "undefined" &&
     to.path !== "/login" &&
     to.path !== "/register"
   ) {

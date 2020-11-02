@@ -1,11 +1,3 @@
-/*
- * @Author: github.com/yhkl-dev
- * @LastEditors: github.com/yhkl-dev
- * @Date: 2020-10-30 08:20:22
- * @LastEditTime: 2020-10-30 13:12:14
- * @Description: file content
- * @FilePath: \dbdms-frontend\src\utils\request.ts
- */
 import axios from "axios";
 import store from "../store";
 import router from "../router";
@@ -16,8 +8,8 @@ import { notification } from "ant-design-vue";
 // eslint-disable-next-line
 const service = (axios as any).create({
   // baseURL: process.env.BASE_API, // api的base_url
-  // baseURL: "http://yangkai.org.cn:8004/", // api的base_url
-  baseURL: "http://192.168.31.128:8080/", // api的base_url
+  baseURL: "http://yangkai.org.cn:8004/", // api的base_url
+  // baseURL: "http://192.168.31.128:8080/", // api的base_url
   timeout: 15000 // 请求超时时间
 });
 
@@ -67,30 +59,13 @@ service.interceptors.response.use(
       });
     } else if (error.response.status === 403) {
       notification.error({
-        message: "System Internal Error",
+        message: "Permission Denied",
         description: ""
       });
       router.push({ path: "/homepage" });
     }
+    return Promise.reject(error);
   }
-
-  //   if (error.response.status === 401) {
-  //     store.dispatch("FedLogOut").then(() => {
-  //       router.push({ path: "/login" });
-  //     });
-  //   } else if (error.response.status === 403) {
-  //     message.error("权限拒绝", 1500, function() {
-  //       router.push({ path: "/homepage" });
-  //     });
-  //   } else if (error.response.status === 400) {
-  //     message.error("认证失效，请重新登陆");
-  //   } else if (error.response.status === 500) {
-  //     message.error("服务器内部错误");
-  //   } else {
-  //     message.error(error.response.data.detail);
-  //   }
-  //   return Promise.reject(error);
-  // }
 );
 
 export default service;

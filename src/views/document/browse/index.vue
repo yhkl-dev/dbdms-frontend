@@ -1,66 +1,69 @@
 <template>
   <div class="browse">
-    <a-select
-      allowClear
-      size="small"
-      style="width: 150px"
-      v-model="queryVersionOptions.reourceID"
-      placeholder="database"
-    >
-      <a-select-option
-        :value="item.resource_id"
-        v-for="item in resourceList"
-        :key="item.resource_id"
+    <div class="content">
+      <a-select
+        allowClear
+        size="small"
+        class="select-style"
+        v-model="queryVersionOptions.reourceID"
+        placeholder="database"
       >
-        {{ item.resource_name }}
-      </a-select-option>
-    </a-select>
-    <a-select
-      allowClear
-      size="small"
-      style="width: 150px"
-      v-model="queryVersionOptions.Version"
-      placeholder="document verison"
-    >
-      <a-select-option
-        :value="item.version_name"
-        v-for="item in versionList"
-        :key="item.version_name"
+        <a-select-option
+          :value="item.resource_id"
+          v-for="item in resourceList"
+          :key="item.resource_id"
+        >
+          {{ item.resource_name }}
+        </a-select-option>
+      </a-select>
+      <a-select
+        allowClear
+        size="small"
+        style="width: 150px"
+        v-model="queryVersionOptions.Version"
+        placeholder="document verison"
       >
-        {{ item.version_name }}
-      </a-select-option>
-    </a-select>
-    <a-select
-      allowClear
-      size="small"
-      style="width: 150px"
-      v-model="queryDocumentOptions.DocumentTableName"
-      placeholder="table"
-    >
-      <a-select-option
-        :value="item.document_table_name"
-        v-for="item in documentTableList"
-        :key="item.document_id"
+        <a-select-option
+          :value="item.version_name"
+          v-for="item in versionList"
+          :key="item.version_name"
+        >
+          {{ item.version_name }}
+        </a-select-option>
+      </a-select>
+      <a-select
+        allowClear
+        size="small"
+        style="width: 150px"
+        v-model="queryDocumentOptions.DocumentTableName"
+        placeholder="table"
       >
-        {{ item.document_table_name }}
-      </a-select-option>
-    </a-select>
-    <div class="doc-content">
-      <div class="document-content" v-if="documentList.length !== 0">
-        <div v-for="document in documentList" :key="document.document_id">
-          <a-divider orientation="left">{{
-            "Database Name: " +
-              document.document_db_name +
-              " Version: " +
-              document.document_version
-          }}</a-divider>
-          <div class="markdown-body markdown-style">
-            <VueMarkdown :source="document.document_content"></VueMarkdown>
+        <a-select-option
+          :value="item.document_table_name"
+          v-for="item in documentTableList"
+          :key="item.document_id"
+        >
+          {{ item.document_table_name }}
+        </a-select-option>
+      </a-select>
+
+      <div class="doc-content">
+        <div class="document-content" v-if="documentList.length !== 0">
+          <div v-for="document in documentList" :key="document.document_id">
+            <a-divider style="font-weight: bold" orientation="left">{{
+              "database name: " +
+                document.document_db_name +
+                " | version: " +
+                document.document_version
+            }}</a-divider>
+            <div class="markdown-body markdown-style">
+              <VueMarkdown :source="document.document_content"></VueMarkdown>
+            </div>
           </div>
         </div>
-      </div>
-      <div style="width: 90%; justify-content: center" v-else>
-        <a-empty :description="false" />
+        <div style="width: 90%; justify-content: center" v-else>
+          <a-empty :description="false" />
+        </div>
       </div>
     </div>
   </div>
@@ -153,7 +156,6 @@ export default {
       });
     },
     "queryDocumentOptions.DocumentTableName"(value) {
-      console.log("vvvvvvvvvvvvv", value);
       if (!value) {
         this.queryDocumentOptions.DocumentTableName = "";
         return;
@@ -175,9 +177,6 @@ export default {
       }).then(res => {
         console.log("document list", res);
         this.documentList = res.Content.Rows;
-        if (this.documentList.length !== 0) {
-          this.oldStr = this.documentList[0].document_content;
-        }
       });
     }
   },
@@ -255,11 +254,17 @@ export default {
 
 <style lang="scss" scoped>
 .browse {
-  width: 90%;
-  margin: 20px;
+  background-color: #fefefe;
+  border-radius: 4px;
 }
-.document-content {
-  text-justify: inherit;
+
+.content {
+  background-color: #fefefe;
+  margin-left: 20px;
+}
+.select-style {
+  width: 150px;
+  margin-top: 10px;
 }
 .doc-content {
   max-width: 980px;

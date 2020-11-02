@@ -1,6 +1,6 @@
 <template>
-  <div style="compare">
-    <div style="doc-content">
+  <div class="compare">
+    <div class="doc-content">
       <a-row>
         <a-col :span="12">
           <a-select
@@ -101,7 +101,7 @@
         style="markdown-style"
         :old-string="oldStr"
         :new-string="newStr"
-        context="3"
+        :context="3"
         outputFormat="side-by-side"
       />
     </div>
@@ -388,4 +388,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.compare {
+  background-color: #fefefe;
+  border-radius: 4px;
+}
+.doc-content {
+  background-color: #fefefe;
+}
+</style>

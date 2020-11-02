@@ -1,16 +1,9 @@
-/*
- * @Author: github.com/yhkl-dev
- * @LastEditors: github.com/yhkl-dev
- * @Date: 2020-10-29 10:55:13
- * @LastEditTime: 2020-10-30 15:11:37
- * @Description: file content
- * @FilePath: \dbdms-frontend\src\utils\auth.ts
- */
 import Cookies from "js-cookie";
 
 const TokenKey = "ACCESS_TOKEN";
 
 export function getToken() {
+  console.log("test>>>", Cookies.get(TokenKey));
   return Cookies.get(TokenKey);
 }
 

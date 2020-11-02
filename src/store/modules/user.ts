@@ -1,11 +1,3 @@
-/*
- * @Author: github.com/yhkl-dev
- * @LastEditors: github.com/yhkl-dev
- * @Date: 2020-10-29 12:17:22
- * @LastEditTime: 2020-10-30 09:52:51
- * @Description: file content
- * @FilePath: \dbdms-frontend\src\store\modules\user.ts
- */
 import { login } from "@/apis/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 

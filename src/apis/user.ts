@@ -15,7 +15,7 @@ export function login(user_name: string, user_password: string) {
   });
 }
 
-// 用户列表
+// user list
 export function getUserList(params: JSON) {
   return request({
     url: "api/v1/users/",

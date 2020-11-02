@@ -1,11 +1,3 @@
-/*
- * @Author: github.com/yhkl-dev
- * @LastEditors: github.com/yhkl-dev
- * @Date: 2020-10-28 09:35:00
- * @LastEditTime: 2020-10-30 15:03:34
- * @Description: file content
- * @FilePath: \dbdms-frontend\src\main.ts
- */
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";

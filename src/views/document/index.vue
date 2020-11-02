@@ -1,7 +1,7 @@
 <template>
-  <a-layout class="document" style="width:100%">
+  <a-layout class="document">
     <a-row type="flex" :gutter="16">
-      <a-col :xs="20" :sm="4" :md="4" :lg="4" :xl="4" :span="3">
+      <a-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" :span="3">
         <div class="docuement-sidebar">
           <a-menu
             class="menu"
@@ -25,16 +25,17 @@
         </div>
       </a-col>
       <!-- <a-col flex="1 1 200px" :xs="2" :sm="4" :md="6" :lg="8" :xl="10"> -->
-      <a-col :xs="2" :sm="16" :md="20" :lg="20" :xl="20" :span="3">
+      <a-col :xs="17" :sm="17" :md="17" :lg="17" :xl="17" :span="3">
         <a-layout-content>
           <router-view />
         </a-layout-content>
       </a-col>
-      <!-- <a-col flex="200px">
+      <a-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3" :span="3">
+        On this page
         <div>
           @yhkl-dev
         </div>
-      </a-col> -->
+      </a-col>
     </a-row>
   </a-layout>
 </template>

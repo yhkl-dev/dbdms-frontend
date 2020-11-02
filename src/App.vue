@@ -6,7 +6,7 @@
 
 <style lang="scss">
 #app {
-  background: #f0f2f5;
+  background: #fcfbfa;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: #726e6c;
