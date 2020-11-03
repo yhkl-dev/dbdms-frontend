@@ -3,7 +3,7 @@
     <a-layout>
       <a-layout-header class="header">
         <div class="header-content"></div>
-        <a class="header-logo" href="/">develop</a>
+        <a class="header-logo" href="/">Document</a>
         <a class="header-link" href="/database">
           <a-icon type="read" class="icon-style" />
           <span class="title">docs</span>
