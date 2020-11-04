@@ -1,49 +1,59 @@
-const formRules = {
+const rules = {
   resourceName: [
     {
       required: true,
-      message: "Please input Activity name",
+      message: "Please input resource name",
       trigger: "blur"
     },
     {
-      min: 3,
-      max: 5,
-      message: "Length should be 3 to 5",
+      min: 5,
+      max: 20,
+      message: "Length should be 5 to 20",
       trigger: "blur"
     }
   ],
-  username: [
+  resourceUser: [
+    {
+      required: true,
+      message: "Please input resource user name",
+      trigger: "blur"
+    }
+  ],
+  resourcePassword: [
+    {
+      required: true,
+      message: "Please input resource user password",
+      trigger: "blur"
+    }
+  ],
+  resourceHostIP: [
+    {
+      required: true,
+      message: "Please input resource IP address",
+      trigger: "blur"
+    }
+  ],
+  resourcePort: [
+    {
+      required: true,
+      message: "Please input resource port",
+      trigger: "blur"
+    }
+  ],
+  resourceType: [
+    {
+      required: true,
+      message: "Please select resource type",
+      trigger: "change"
+    }
+  ],
+  resourceDescription: [
     {
       required: true,
       message: "Please select activity resource",
       trigger: "change"
     }
-  ],
-  password: [
-    {
-      required: true,
-      message: "Please select Activity zone",
-      trigger: "change"
-    }
-  ],
-  type: [
-    {
-      type: "array",
-      required: true,
-      message: "Please select at least one activity type",
-      trigger: "change"
-    }
-  ],
-
-  description: [
-    {
-      required: true,
-      message: "Please input activity form",
-      trigger: "blur"
-    }
   ]
 };
 
-const formData = {
-  resourceName: ""
-};
+export default rules;

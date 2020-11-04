@@ -14,20 +14,9 @@
       :columns="columns"
       :data-source="resourceList"
       size="small"
+      :pagination="paginationOptions"
       :rowKey="resourceList => resourceList.resource_id"
     >
-      <span slot="customTitle">Resource Name</span>
-      <!-- <span slot="tags" slot-scope="tags">
-        <a-tag
-          v-for="tag in tags"
-          :key="tag"
-          :color="
-            tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'
-          "
-        >
-          {{ tag.toUpperCase() }}
-        </a-tag>
-      </span> -->
       <span slot="action" slot-scope="column">
         <a @click="generateDocument(column.resource_id)">Generate doc</a>
         <a-divider type="vertical" />
@@ -35,14 +24,16 @@
         <a-divider type="vertical" />
         <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
       </span>
+      <template slot="pagination">
+        <a-pagination :current="current" />
+      </template>
     </a-table>
     <common-form
       :title="title"
       :visible="visible"
-      :confirmLoading="confirmLoading"
-      :formData="formData"
-      :formRules="formRules"
-      @handleSave="handleSave"
+      :rules="rules"
+      :confirm-loading="confirmLoading"
+      @handleOk="handleOk"
       @handleCancel="handleCancel"
     ></common-form>
   </div>
@@ -55,13 +46,13 @@ const columns = [
     dataIndex: "resource_type.resource_type_name"
   },
   {
-    title: "RESOURCE NAME",
+    title: "NAME",
     dataIndex: "resource_name",
     slots: { title: "customTitle" },
     scopedSlots: { customRender: "resource_name" }
   },
   {
-    title: "IP",
+    title: "IP ADDRESS",
     dataIndex: "resource_host_ip"
   },
   {
@@ -89,40 +80,61 @@ const columns = [
   }
 ];
 
-import { formRules, formData } from "./common.js";
-import { getResourceList } from "@/apis/resources";
+import rules from "./common";
+import commonForm from "./commonForm";
+import { getResourceList, SaveResource } from "@/apis/resources";
 import { generateDocument } from "@/apis/documents";
-import commonForm from "./common-form";
 export default {
   name: "document",
-  components: {
-    commonForm
-  },
+  components: { commonForm },
   data() {
     return {
       columns,
       title: "ADD",
       visible: false,
+      formType: "ADD",
       confirmLoading: false,
       resourceParentTypeName: "Database", // db type
       resourceList: [],
 
-      labelCol: { span: 7 },
-      wrapperCol: { span: 17 },
-      other: "",
-      formData: formData,
-      formRules: formRules
+      labelCol: { span: 4 },
+      wrapperCol: { span: 16 },
+      rules: rules,
+      page: 1,
+      pageSize: 10,
+      total: 0,
+      paginationOptions: {
+        size: "small",
+        defaultPageSize: 10,
+        current: 1,
+        total: 0,
+        pageSizeOptions: ["10", "20", "50"],
+        showTotal: total => `Total ${total} items`,
+        onChange: current => {
+          console.log(current);
+          this.paginationOptions.current = current;
+          this.fetchResourceList();
+        }
+      }
     };
   },
   methods: {
     fetchResourceList() {
-      // eslint-disable-next-line
-      getResourceList({ resource_type_name: this.resourceTypeName }).then(
-        res => {
-          console.log(res);
-          this.resourceList = res.Content.Rows;
+      getResourceList({
+        // eslint-disable-next-line
+        resource_type_name: this.resourceTypeName,
+        page: this.paginationOptions.current,
+        // eslint-disable-next-line
+        page_size: 10
+      }).then(res => {
+        console.log(res);
+
+        this.resourceList = res.Content.Rows;
+        if (this.resourceList) {
+          this.paginationOptions.current = res.Content.Page;
+          this.paginationOptions.total = res.Content.Total;
         }
-      );
+      });
     },
     generateDocument(value) {
       console.log(value);
@@ -137,30 +149,26 @@ export default {
     showModal() {
       this.visible = true;
     },
-    handleSave(value) {
-      console.log("handle save", value);
-    },
-    handleOk(e) {
-      this.ModalText = "The modal will be closed after two seconds";
-      this.confirmLoading = true;
-      setTimeout(() => {
-        this.visible = false;
-        this.confirmLoading = false;
-      }, 2000);
+    handleOk(form) {
+      console.log("form", form);
+      SaveResource(form)
+        .then(res => {
+          this.visible = false;
+          this.$notification.success({
+            message: res.Message,
+            description: res.Content
+          });
+        })
+        .catch(err => {
+          this.$notification.err({
+            message: "ERROR",
+            description: err
+          });
+        });
     },
     handleCancel(value) {
-      console.log("Clicked cancel button", value);
+      console.log("Clicked cancel button");
       this.visible = value;
-    },
-    onSubmit() {
-      this.$refs.ruleForm.validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
     },
     resetForm() {
       this.$refs.ruleForm.resetFields();
