@@ -1,3 +1,5 @@
+/* eslint-disable no-constant-condition */ /* eslint-disable
+no-constant-condition */ /* eslint-disable no-constant-condition */
 <template>
   <div>
     <a-modal
@@ -110,20 +112,31 @@ export default {
     formType: {
       type: String,
       default: "ADD"
-    }
+    },
+    formData: { type: Object }
   },
   data() {
     return {
       labelCol: { span: 6 },
       wrapperCol: { span: 17 },
       form: {
-        resoruceName: "",
-        resourceUser: "",
-        resourcePassword: "",
-        resourceHostIP: "",
-        resourcePort: "",
         resourceType: "",
-        resourceDescription: ""
+        resourceName: this.formData.resource_name
+          ? this.formData.resource_name
+          : "",
+        resourceUser: this.formData.resource_user
+          ? this.formData.resource_user
+          : "",
+        resourcePassword: "",
+        resourceHostIP: this.formData.resource_host_ip
+          ? this.formData.resource_host_ip
+          : "",
+        resourcePort: this.formData.resource_port
+          ? this.formData.resource_port
+          : "",
+        resourceDescription: this.formData.resource_description
+          ? this.formData.resource_description
+          : ""
       },
       queryTypeParams: {
         page: 1,

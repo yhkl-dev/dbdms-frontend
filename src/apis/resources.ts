@@ -18,7 +18,15 @@ export function getResourceTypeList(params: JSON) {
   });
 }
 
-export function SaveResource(params: { resourceName: string; resourceUser: string; resourcePassword: any; resourceType: number; resourceDescription: any; resourceHostIP: any; resourcePort: number; }) {
+export function SaveResource(params: {
+  resourceName: string;
+  resourceUser: string;
+  resourcePassword: any;
+  resourceType: number;
+  resourceDescription: any;
+  resourceHostIP: any;
+  resourcePort: number;
+}) {
   return request({
     url: "api/v1/resources",
     method: "post",
@@ -32,14 +40,14 @@ export function SaveResource(params: { resourceName: string; resourceUser: strin
       // eslint-disable-next-line @typescript-eslint/camelcase
       resource_type: {
         // eslint-disable-next-line @typescript-eslint/camelcase
-        resource_type_id: params.resourceType,
+        resource_type_id: params.resourceType
       },
       // eslint-disable-next-line @typescript-eslint/camelcase
       resource_description: params.resourceDescription,
       // eslint-disable-next-line @typescript-eslint/camelcase
       resource_host_ip: params.resourceHostIP,
       // eslint-disable-next-line @typescript-eslint/camelcase
-      resource_port: params.resourcePort,
+      resource_port: params.resourcePort
     }
   });
 }

@@ -20,12 +20,12 @@
       <span slot="action" slot-scope="column">
         <a @click="generateDocument(column.resource_id)">Generate doc</a>
         <a-divider type="vertical" />
-        <a>Update</a>
+        <a @click="handleUpdateResource(column)">Update</a>
         <a-divider type="vertical" />
-        <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
+        <a class="ant-dropdown-link">More actions <a-icon type="down" /> </a>
       </span>
       <template slot="pagination">
-        <a-pagination :current="current" />
+        <a-pagination />
       </template>
     </a-table>
     <common-form
@@ -33,6 +33,7 @@
       :visible="visible"
       :rules="rules"
       :confirm-loading="confirmLoading"
+      :formData="formData"
       @handleOk="handleOk"
       @handleCancel="handleCancel"
     ></common-form>
@@ -90,6 +91,7 @@ export default {
   data() {
     return {
       columns,
+      formData: {},
       title: "ADD",
       visible: false,
       formType: "ADD",
@@ -149,6 +151,12 @@ export default {
     showModal() {
       this.visible = true;
     },
+    handleUpdateResource(column) {
+      this.title = "UPDATE";
+      this.visible = true;
+      this.formData = column;
+      console.log(this.formData);
+    },
     handleOk(form) {
       console.log("form", form);
       SaveResource(form)
@@ -169,10 +177,10 @@ export default {
     handleCancel(value) {
       console.log("Clicked cancel button");
       this.visible = value;
-    },
-    resetForm() {
-      this.$refs.ruleForm.resetFields();
     }
+    // resetForm() {
+    //   this.$refs.ruleForm.resetFields();
+    // }
   },
   created() {
     this.fetchResourceList();

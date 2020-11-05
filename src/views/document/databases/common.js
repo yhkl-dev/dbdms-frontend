@@ -1,5 +1,5 @@
 const rules = {
-  resourceName: [
+    resourceName: [
     {
       required: true,
       message: "Please input resource name",
