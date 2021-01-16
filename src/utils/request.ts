@@ -8,9 +8,9 @@ import { notification } from "ant-design-vue";
 // eslint-disable-next-line
 const service = (axios as any).create({
   // baseURL: process.env.BASE_API, // api的base_url
-  baseURL: "http://yangkai.org.cn:8004/", // api的base_url
+  // baseURL: "http://yangkai.org.cn:8004/", // api的base_url
   // baseURL: "http://58.87.109.240:8080/", // api的base_url
-  // baseURL: "http://192.168.31.128:8080/", // api的base_url
+  baseURL: "http://192.168.31.29:8080/", // api的base_url
   timeout: 15000 // 请求超时时间
 });
 

@@ -6,7 +6,7 @@
         <a class="header-logo" href="/">develop</a>
         <a class="header-link" href="/database">
           <a-icon type="read" class="icon-style" />
-          <span class="title">docs</span>
+          <span class="title">DOCS</span>
         </a>
       </a-layout-header>
       <a-layout-content class="content">
@@ -35,9 +35,9 @@
 export default {
   data() {
     return {
-      basePath: "/"
+      basePath: "/",
     };
-  }
+  },
 };
 </script>
 
