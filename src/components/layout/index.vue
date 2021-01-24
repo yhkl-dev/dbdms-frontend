@@ -1,53 +1,105 @@
 <template>
-  <div style="height: 100%">
-    <a-layout>
-      <a-layout-header class="header">
-        <div class="header-content"></div>
-        <a class="header-logo" href="/">develop</a>
-        <a class="header-link" href="/database">
-          <a-icon type="read" class="icon-style" />
-          <span class="title">DOCS</span>
-        </a>
-      </a-layout-header>
-      <a-layout-content class="content">
-        <div>
-          <a-breadcrumb separator="/">
-            <a-breadcrumb-item href="">
-              <a-icon type="home" />
-            </a-breadcrumb-item>
-            <a-breadcrumb-item>
-              <a-icon :type="$route.meta.icon" />
-              {{ $route.name }}
-            </a-breadcrumb-item>
-          </a-breadcrumb>
-          <br />
-        </div>
+  <el-container class="layout-container">
+    <el-header style="background: gray" >
+      <el-row :gutter="10" style="width:100%;">
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="2"><div class="grid-content">
+          DEVELOP</div></el-col>
+        <el-col :xs="8" :sm="12" :md="14" :lg="16" :xl="18" class="header-link">
+          <el-menu :default-active="activeIndex" class="el-menu-top " mode="horizontal" @select="handleSelect">
+            <el-menu-item index="/" >SERVER</el-menu-item>
+            <el-menu-item index="/database/db-list" >DOCUMENT</el-menu-item>
+            <el-menu-item index="/user" >USER</el-menu-item>
+          </el-menu>
+        </el-col>
+        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="2"><div class="grid-content">
+          <el-button size="small" type="text">QUIT</el-button></div>
+        </el-col>
+      </el-row>
+    </el-header>
+    <el-scrollbar style="height: 100%;">
+      <el-main>
         <router-view></router-view>
-      </a-layout-content>
-      <a-layout-footer class="footer">
-        <div class="footer-content">@yhkl-dev</div>
-      </a-layout-footer>
-    </a-layout>
-  </div>
+      </el-main>
+    </el-scrollbar>
+    <el-footer style="background: gray">
+      <div class="footer-content">@yhkl-dev</div>
+    </el-footer>
+  </el-container>
 </template>
 
 <script>
 export default {
-  data() {
+  name: 'Layout',
+  data () {
     return {
-      basePath: "/",
-    };
+      activeIndex: '1'
+    }
   },
-};
+  methods: {
+    handleSelect (key, keyPath) {
+      this.$router.push(key)
+    }
+  }
+}
 </script>
 
-<style lang="scss" scoped>
+<style style="scss" scoped>
+
+.el-menu-item.is-active {
+  background-color: #808080 !important;
+  color: #ffffff;
+  /* span {
+    color: #ffffff !important;
+  } */
+}
+.el-menu-item {
+  font-size: 15px;
+  color: #ffffff;
+  padding: 0 20px;
+  cursor: pointer;
+  -webkit-transition: border-color .3s,background-color .3s,color .3s;
+  transition: border-color .3s,background-color .3s,color .3s;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.el-menu--horizontal>.el-menu-item.is-active {
+  border-bottom: 0;
+  color: #ffffff;
+}
+.el-menu-top {
+  background: #808080;
+  font-weight: bold;
+  color: #fefefe;
+}
+.layout-container {
+  height: 100%;
+}
+
+.bg-purple {
+    background: #d3dce6;
+}
+
+.grid-content {
+  min-height: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  color: #fefefe;
+}
+
+.grid-link {
+  min-height: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  color: #fefefe;
+  margin-left: 20px;
+}
+
 .header {
   border-top: 0.4em solid #4b0380;
   background-color: #fefefe;
   position: relative;
   z-index: 1;
-  display: block;
+  /* display: block; */
 }
 .header::before {
   background: #50b7eb;
@@ -61,22 +113,20 @@ export default {
 .header::before {
   content: "";
   display: block;
-  height: 0.4em;
+  height: 0.3em;
   position: absolute;
   top: -0.4em;
   -webkit-transform: skewX(-45deg);
   transform: skewX(-45deg);
   width: calc(25% + 0.2em);
 }
-*,
+/* *,
 *::after,
 *::before {
   -webkit-box-sizing: inherit;
   box-sizing: inherit;
-}
-
+} */
 .header-content {
-  padding: 0 2%;
   background-color: #f2f4f5;
   -ms-flex-align: start;
   align-items: flex-start;
@@ -102,7 +152,7 @@ export default {
   text-decoration: none;
 }
 .header-logo::before {
-  background-image: url("../../assets/database.png");
+  /* background-image: url("../../assets/database.png"); */
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: cover;
@@ -121,15 +171,14 @@ export default {
 .header-logo:visited {
   color: #424242;
 }
-
-.header-link {
-  position: relative;
+/* .header-link { */
+  /* display: inline; */
+  /* position: relative;
   color: #424242;
   flex-shrink: 0;
   font-size: 1.6rem;
-  font-weight: 400;
-  padding-left: 2.25em;
-}
+  padding-left: 2.25em; */
+/* } */
 .title {
   margin-left: 0.5em;
 }
@@ -160,11 +209,10 @@ export default {
   margin-bottom: 6em;
   margin-top: 2.4em;
 }
-
 .footer {
   background: #f0f2f5;
   padding: 1.2em 0;
-  // display: block;
+  /* // display: block; */
   text-align: center;
 }
 .footer-content {
@@ -172,9 +220,18 @@ export default {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  line-height: 60px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+}
+a {
+  text-decoration: none;
+  font-weight: bold;
+}
+.router-link-active {
+  text-decoration: none;
+  font-weight: bold;
 }
 </style>
