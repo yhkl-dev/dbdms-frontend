@@ -71,8 +71,8 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button size="mini" type="primary" @click="testConnection">TEST CONNECTION</el-button>
-        <el-button size="mini" type="primary" @click="saveResouce">CONFIRM</el-button>
+        <el-button size="mini" type="primary" v-if="dialogTitle === 'ADD'" @click="testConnection">TEST CONNECTION</el-button>
+        <el-button size="mini" type="primary" @click="saveResource">CONFIRM</el-button>
         <el-button size="mini" @click="cancel('resourceForm')">CANCEL</el-button>
       </span>
     </el-dialog>
@@ -150,22 +150,36 @@ export default {
       })
     },
     testConnection () {
+      this.loading = true
       const data = {
+        resource_name: this.resourceForm.resourceName,
         resource_type: {
           resource_type_id: this.resourceForm.resourceType
         },
-        resource_host_ip: this.resourceForm.resourceHostIP,
         resource_user: this.resourceForm.resourceUser,
         resource_password: this.resourceForm.resourcePassword,
+        resource_host_ip: this.resourceForm.resourceHostIP,
+        resource_database_name: this.resourceForm.resourceSchema,
         resource_port: Number(this.resourceForm.resourcePort),
-        resource_database_name: this.resourceForm.resourceSchema
+        resource_description: 'x'
       }
-      console.log('data', data)
       testDBConnection(data).then(res => {
         console.log('res', res)
+        if (res.Message === 'true') {
+          this.loading = false
+          this.$message({
+            message: 'CONNECTION SUCCESS',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: 'CONNECTION FAILED',
+            type: 'warning'
+          })
+        }
       })
     },
-    saveResouce () {
+    saveResource () {
       const data = {
         resource_type: {
           resource_type_id: this.resourceForm.resourceType
@@ -253,6 +267,7 @@ export default {
       if (this.$refs['resourceForm'] !== undefined) {
         this.$refs['resourceForm'].resetFields()
       }
+      this.dialogTitle = 'ADD'
       this.dialogVisible = true
     },
     openDocs (row) {

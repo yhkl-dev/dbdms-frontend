@@ -47,8 +47,8 @@ export function getResourceTypeList (params) {
 // test database connection
 export function testDBConnection (params) {
   return request({
-    url: 'api/v1/resource_types',
-    method: 'get',
+    url: 'api/v1/test_connection',
+    method: 'post',
     data: params
   })
 }
