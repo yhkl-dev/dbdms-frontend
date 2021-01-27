@@ -167,14 +167,14 @@ export default {
         console.log('res', res)
         if (res.Message === 'true') {
           this.loading = false
-          this.$message({
-            message: 'CONNECTION SUCCESS',
-            type: 'success'
+          this.$notify({
+            title: 'SUCCESS',
+            message: 'CONNECTION SUCCESS'
           })
         } else {
-          this.$message({
-            message: 'CONNECTION FAILED',
-            type: 'warning'
+          this.$notify.error({
+            title: 'ERROR',
+            message: res.Content
           })
         }
       })
